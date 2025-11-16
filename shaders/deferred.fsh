@@ -34,16 +34,10 @@ vec3 projectAndDivide(mat4 projectionMatrix, vec3 position) {
 }
 
 vec3 getShadow(vec3 screenPos) {
-	vec4 shadowClipPos = shadowProjection * vec4(
-		(shadowModelView * vec4(
-			(gbufferModelViewInverse * vec4(
-				projectAndDivide(gbufferProjectionInverse, screenPos * 2.0 - 1.0),
-				1.0
-			)).xyz,
-			1.0
-		)).xyz,
-		1.0
-	);
+	vec3 viewPos = projectAndDivide(gbufferProjectionInverse, screenPos * 2.0 - 1.0);
+	vec3 feetPlayerPos = (gbufferModelViewInverse * vec4(viewPos, 1.0)).xyz;
+	vec3 shadowViewPos = (shadowModelView * vec4(feetPlayerPos, 1.0)).xyz;
+	vec4 shadowClipPos = shadowProjection * vec4(shadowViewPos, 1.0);
 	shadowClipPos.z -= 1e-3;
 	vec3 shadowScreenPos = (shadowClipPos.xyz / shadowClipPos.w) * 0.5 + 0.5;
 
