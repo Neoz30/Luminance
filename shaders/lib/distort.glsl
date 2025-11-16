@@ -7,7 +7,7 @@ float f(vec2 v) {
 	return sqrt(sqrt(sqrt(sum)));
 }
 
-vec3 distortShadowClipPos(vec3 shadowClipPos){
+vec3 distortShadowClipPos(vec3 shadowClipPos) {
 	float distortionFactor = 0.9 * f(shadowClipPos.xy) + 0.1;
 	shadowClipPos.xy /= distortionFactor;
 	shadowClipPos.z *= 0.5;

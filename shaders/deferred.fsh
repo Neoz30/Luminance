@@ -28,6 +28,8 @@ const vec3 sunlightColor = vec3(0.99, 0.98, 0.83);
 const vec3 moonlightColor = vec3(0.05, 0.05, 0.44);
 const vec3 ambientColor = vec3(0.1);
 
+const mat4 viewToClip = shadowProjection * shadowModelView * gbufferModelViewInverse;
+
 vec3 projectAndDivide(mat4 projectionMatrix, vec3 position) {
 	vec4 homPos = projectionMatrix * vec4(position, 1.0);
 	return homPos.xyz / homPos.w;
@@ -35,10 +37,9 @@ vec3 projectAndDivide(mat4 projectionMatrix, vec3 position) {
 
 vec3 getShadow(vec3 screenPos) {
 	vec3 viewPos = projectAndDivide(gbufferProjectionInverse, screenPos * 2.0 - 1.0);
-	vec3 feetPlayerPos = (gbufferModelViewInverse * vec4(viewPos, 1.0)).xyz;
-	vec3 shadowViewPos = (shadowModelView * vec4(feetPlayerPos, 1.0)).xyz;
-	vec4 shadowClipPos = shadowProjection * vec4(shadowViewPos, 1.0);
+	vec4 shadowClipPos = viewToClip * vec4(viewPos, 1.0);
 	shadowClipPos.z -= 1e-3;
+	shadowClipPos.xyz = distortShadowClipPos(shadowClipPos.xyz);
 	vec3 shadowScreenPos = (shadowClipPos.xyz / shadowClipPos.w) * 0.5 + 0.5;
 
 	float transparentShadow = step(shadowScreenPos.z, texture2D(shadowtex0, shadowScreenPos.xy).r);
@@ -75,7 +76,7 @@ void main() {
 	vec3 specular = vec3(0.0);
 	if (shadow != 0.0)
 	{
-		vec3 viewPos = projectAndDivide(gbufferModelViewInverse, vec3(texcoord, depth));
+		vec3 viewPos = projectAndDivide(gbufferProjectionInverse, vec3(texcoord, depth) * 2.0 - 1.0);
 		vec3 reflection = normalize(reflect(worldLightVector, normal));
 		vec3 cam2px = normalize(mat3(gbufferModelViewInverse) * viewPos - camPosition);
 		specular = vec3(pow(clamp(dot(reflection, cam2px), 0.0, 1.0), 16));
