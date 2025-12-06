@@ -10,6 +10,10 @@ uniform sampler2D depthtex0;
 
 in vec2 texcoord;
 
+/*
+const int colortex0Format = RGB16;
+*/
+
 /* RENDERTARGETS: 0 */
 layout(location = 0) out vec4 color;
 
@@ -29,5 +33,5 @@ void main()
 	if (shadow != 0.0)
 		viewPos = projectAndDivide(gbufferProjectionInverse, vec3(texcoord, depth) * 2.0 - 1.0);
 
-	color.rgb *= phongLightColor(viewPos, normal, shadow) + blockLightColor(lightcoord.r);
+	color.rgb *= phongLightColor(viewPos, normal, shadow) * lightcoord.g + blockLightColor(lightcoord.r);
 }
