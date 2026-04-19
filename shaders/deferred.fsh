@@ -8,6 +8,8 @@ uniform sampler2D colortex1;
 uniform sampler2D colortex2;
 uniform sampler2D depthtex0;
 
+uniform int renderStage;
+
 in vec2 texcoord;
 
 /*
@@ -27,11 +29,8 @@ void main()
 	vec2 lightcoord = texture2D(colortex1, texcoord).rg;
 	vec3 normal = normalize((texture(colortex2, texcoord).rgb - 0.5) * 2.0);
 
-	vec3 shadow = getShadow(projectAndDivide(gbufferProjectionInverse, vec3(texcoord, depth) * 2.0 - 1.0));
-
-	vec3 viewPos = vec3(0.0);
-	if (shadow != 0.0)
-		viewPos = projectAndDivide(gbufferProjectionInverse, vec3(texcoord, depth) * 2.0 - 1.0);
+	vec3 viewPos = projectAndDivide(gbufferProjectionInverse, vec3(texcoord, depth) * 2.0 - 1.0);
+	vec3 shadow = getShadow(viewPos, normal);
 
 	color.rgb *= phongLightColor(viewPos, normal, shadow) * lightcoord.g + blockLightColor(lightcoord.r);
 }

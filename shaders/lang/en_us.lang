@@ -1,5 +1,9 @@
 option.WAVE_AMPLITUDE = Wave amplitude
-option.FOG = Fog
 
+option.FOG = Fog
 value.FOG.0 = OFF
 value.FOG.1 = ON
+
+option.SHADOW_MAP = Shadow Quality
+option.SHADOW_RANGE = Shadow Sample
+option.SHADOW_RADIUS = Shadow Blur

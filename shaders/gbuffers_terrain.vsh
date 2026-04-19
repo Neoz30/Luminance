@@ -1,13 +1,5 @@
 #version 460 compatibility
 
-uniform mat4 gbufferModelView;
-uniform mat4 gbufferModelViewInverse;
-
-uniform vec3 cameraPosition;
-uniform float frameTimeCounter;
-
-in vec2 mc_Entity;
-
 out vec2 texcoord;
 out vec2 lightcoord;
 out vec4 glcolor;

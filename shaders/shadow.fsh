@@ -1,4 +1,5 @@
 #version 460 compatibility
+#include "settings.glsl"
 
 uniform sampler2D gtexture;
 
@@ -7,9 +8,9 @@ in vec4 glcolor;
 
 layout(location = 0) out vec4 color;
 
-/*
-const int shadowMapResolution = 2048;
-*/
+
+const int shadowMapResolution = SHADOW_MAP;
+
 void main() {
 	color = texture(gtexture, texcoord) * glcolor;
 	if(color.a < 0.1)

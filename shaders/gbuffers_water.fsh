@@ -22,13 +22,13 @@ layout(location = 2) out vec4 encodedNormal;
 void main()
 {
 	color = glcolor * texture2D(colortex0, texcoord);
-	color.rgb = pow(color.rgb, vec3(2.2));
 	if (color.a < 0.01)
 		discard ;
+	color.rgb = pow(color.rgb, vec3(2.2));
 	lightmapData = vec4(lightcoord, 0.0, 1.0);
 	encodedNormal = vec4(normal * 0.5 + 0.5, 1.0);
 
-	vec3 shadow = getShadow(viewPos);
+	vec3 shadow = getShadow(viewPos, normal);
 
 	color.rgb *= phongLightColor(viewPos, normal, shadow) + blockLightColor(lightcoord.r);
 }

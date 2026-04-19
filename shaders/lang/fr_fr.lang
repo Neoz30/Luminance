@@ -1,5 +1,9 @@
 option.WAVE_AMPLITUDE = Amplitude des vagues
-option.FOG = Brouillard
 
+option.FOG = Brouillard
 value.FOG.0 = OFF
 value.FOG.1 = ON
+
+option.SHADOW_MAP = Qualités des ombres
+option.SHADOW_RANGE = Échantillonage des ombres
+option.SHADOW_RADIUS = Floutage des ombres

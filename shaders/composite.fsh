@@ -14,6 +14,8 @@ in vec2 texcoord;
 /* RENDERTARGETS: 0 */
 layout(location = 0) out vec4 color;
 
+uniform sampler2D shadowtex0;
+
 void main() {
 	color = texture2D(colortex0, texcoord);
 	#if FOG
