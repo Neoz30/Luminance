@@ -29,7 +29,8 @@ bool shadow_checkboard(vec3 viewPos)
 vec3 getShadow(vec3 viewPos, vec3 normal) {
 	vec4 shadowClipPos = viewToClip * vec4(viewPos, 1.0);
 	normal = (viewToClip * vec4(normal, 1.0)).xyz;
-	shadowClipPos.z -= 5e-2 * f(shadowClipPos.xy) + 5e-4;
+	//shadowClipPos.z -= 5e-2 * f(shadowClipPos.xy) + 5e-4;
+	shadowClipPos.z -= 1e-3 * 2048 / SHADOW_MAP;
 
 	vec3 shadowAccumaltor = vec3(0.0);
 	for (int x = -SHADOW_RANGE; x <= SHADOW_RANGE; x++)
