@@ -2,6 +2,9 @@
 
 uniform sampler2D texture;
 uniform float alphaTestRef;
+uniform int renderStage;
+uniform vec3 shadowLightPosition;
+uniform mat4 gbufferModelViewInverse;
 
 in vec2 texcoord;
 in vec2 lightcoord;
@@ -19,5 +22,8 @@ void main()
 	if (color.a < alphaTestRef)
 		discard ;
 	lightmapData = vec4(lightcoord, 0.0, 1.0);
-	encodedNormal = vec4(normal * 0.5 + 0.5, 1.0);
+	if (renderStage == MC_RENDER_STAGE_PARTICLES)
+		encodedNormal = vec4((gbufferModelViewInverse * vec4(shadowLightPosition, 1.0) * 0.01) * 0.5 + 0.5);
+	else
+		encodedNormal = vec4(normal * 0.5 + 0.5, 1.0);
 }

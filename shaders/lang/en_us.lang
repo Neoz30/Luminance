@@ -7,3 +7,8 @@ value.FOG.1 = ON
 option.SHADOW_MAP = Shadow Quality
 option.SHADOW_RANGE = Shadow Sample
 option.SHADOW_RADIUS = Shadow Blur
+
+option.LIGHTING_AMBIENT = Ambient Light Strength
+option.LIGHTING_DIFFUSE = Diffuse Light Strength
+option.LIGHTING_SPECULAR = Specular Light Strength
+option.LIGHTING_SHININESS = Surface Shininess

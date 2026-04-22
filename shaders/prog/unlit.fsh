@@ -19,5 +19,5 @@ void main()
 	if (color.a < alphaTestRef)
 		discard ;
 	lightmapData = vec4(lightcoord, 0.0, 1.0);
-	encodedNormal = vec4(vec3(0.5), 1.0);
+	encodedNormal = vec4(vec3(1.0), 1.0);
 }

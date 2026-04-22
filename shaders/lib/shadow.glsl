@@ -17,6 +17,15 @@ uniform mat4 shadowProjection;
 
 const mat4 viewToClip = shadowProjection * shadowModelView * gbufferModelViewInverse;
 
+bool shadow_checkboard(vec3 viewPos)
+{
+	vec4 shadowClipPos = viewToClip * vec4(viewPos, 1.0);
+	shadowClipPos.xyz = distortShadowClipPos(shadowClipPos.xyz);
+	vec2 shadowUV = ((shadowClipPos.xy / shadowClipPos.w) * 0.5 + 0.5) * vec2(SHADOW_MAP) / 16;
+
+	return ((int(shadowUV.x) + int(shadowUV.y)) % 2 == 0);
+}
+
 vec3 getShadow(vec3 viewPos, vec3 normal) {
 	vec4 shadowClipPos = viewToClip * vec4(viewPos, 1.0);
 	normal = (viewToClip * vec4(normal, 1.0)).xyz;

@@ -1,15 +1,16 @@
 #ifndef LIGHTING
 #define LIGHTING
 #include "utils.glsl"
+#include "../settings.glsl"
 
 uniform vec3 shadowLightPosition;
 uniform vec3 camPosition;
 uniform float sunAngle;
 
-const float ambientStrength = 0.20;
-const float diffuseStrength = 1.15;
-const float specularStrength = 1.0;
-const float shininess = 16.0;
+const float ambientStrength = LIGHTING_AMBIENT;
+const float diffuseStrength = LIGHTING_DIFFUSE;
+const float specularStrength = LIGHTING_SPECULAR;
+const float shininess = LIGHTING_SHININESS;
 const vec3 worldLightVector = mat3(gbufferModelViewInverse) * (0.01 * shadowLightPosition);
 
 const float tau = 6.2831853;

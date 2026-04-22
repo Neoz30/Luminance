@@ -7,3 +7,8 @@ value.FOG.1 = ON
 option.SHADOW_MAP = Qualités des ombres
 option.SHADOW_RANGE = Échantillonage des ombres
 option.SHADOW_RADIUS = Floutage des ombres
+
+option.LIGHTING_AMBIENT = Force de la lumiére ambiente
+option.LIGHTING_DIFFUSE = Force de la lumiére diffuse
+option.LIGHTING_SPECULAR = Force de la lumiére speculaire
+option.LIGHTING_SHININESS = Brillance des surfaces

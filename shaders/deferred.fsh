@@ -8,8 +8,6 @@ uniform sampler2D colortex1;
 uniform sampler2D colortex2;
 uniform sampler2D depthtex0;
 
-uniform int renderStage;
-
 in vec2 texcoord;
 
 /* RENDERTARGETS: 0 */
@@ -21,7 +19,7 @@ void main()
 	color = texture2D(colortex0, texcoord);
 	vec2 lightcoord = texture2D(colortex1, texcoord).rg;
 	vec3 normal = texture(colortex2, texcoord).rgb * 2.0 - 1.0;
-	if (length(normal) <= 0.01)
+	if (length(normal) >= 1.1)
 		return ;
 
 	vec3 viewPos = projectAndDivide(gbufferProjectionInverse, vec3(texcoord, depth) * 2.0 - 1.0);
