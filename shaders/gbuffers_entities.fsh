@@ -1,1 +1,1 @@
-#include "gbuffers_terrain.fsh"
+#include "prog/general.fsh"
