@@ -11,14 +11,14 @@ const float ambientStrength = LIGHTING_AMBIENT;
 const float diffuseStrength = LIGHTING_DIFFUSE;
 const float specularStrength = LIGHTING_SPECULAR;
 const float shininess = LIGHTING_SHININESS;
-const vec3 worldLightVector = mat3(gbufferModelViewInverse) * (0.01 * shadowLightPosition);
+const vec3 worldLightVector = 0.01 * shadowLightPosition;
 
 const float tau = 6.2831853;
 const float sint = sin(tau * sunAngle);
 const float dist = 1.0 / clamp(sint, 0.0, 1.0);
 const vec3 sunlightColor = pow(vec3(0.95, 0.9, 0.8), vec3(dist));
 const vec3 skylightColor = vec3(1.0, 2.0, 4.0) * abs(sint);
-const vec3 blocklightColor = vec3(1.0, 0.65, 0.5);
+const vec3 blocklightColor = vec3(1.0, 0.985, 0.831);
 
 vec3 phongLightColor(vec3 viewPos, vec3 normal, vec3 shadowColor)
 {
@@ -33,7 +33,7 @@ vec3 phongLightColor(vec3 viewPos, vec3 normal, vec3 shadowColor)
 		celestialColor = vec3(0.1, 0.1, 0.1);
 	}
 	vec3 diffuse = clamp(dot(worldLightVector, normal), 0.0, 1.0) * celestialColor;
-	vec3 cam2px = normalize(mat3(gbufferModelViewInverse) * viewPos - camPosition);
+	vec3 cam2px = normalize(viewPos);
 	vec3 reflection = normalize(reflect(worldLightVector, normal));
 	vec3 specular = vec3(pow(clamp(dot(reflection, cam2px), 0.0, 1.0), shininess)) * celestialColor;
 	return ambientStrength * ambient + (diffuseStrength * diffuse + specularStrength * specular) * tweakshadow;
@@ -41,7 +41,8 @@ vec3 phongLightColor(vec3 viewPos, vec3 normal, vec3 shadowColor)
 
 vec3 blockLightColor(float brightness)
 {
-	return brightness * blocklightColor;
+	//return (vec3(0.0));
+	return sqrt(brightness * brightness * brightness) * blocklightColor;
 }
 
 #endif

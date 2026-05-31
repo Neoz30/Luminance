@@ -26,6 +26,6 @@ void main()
 
 	color.rgb = pow(color.rgb, vec3(2.2)); 
 	vec3 shadow = getShadow(viewPos, normal);
-	color.rgb *= phongLightColor(viewPos, normal, shadow) + blockLightColor(lightcoord.r);
+	color.rgb *= phongLightColor(viewPos, normal, shadow) * lightcoord.g + blockLightColor(lightcoord.r);
 	color.rgb = pow(color.rgb, vec3(1.0 / 2.2));
 }

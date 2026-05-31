@@ -2,8 +2,8 @@
 
 uniform sampler2D texture;
 uniform float alphaTestRef;
-uniform int renderStage;
 uniform vec3 shadowLightPosition;
+uniform vec4 entityColor;
 
 in vec2 texcoord;
 in vec2 lightcoord;
@@ -20,9 +20,7 @@ void main()
     color = glcolor * texture2D(texture, texcoord);
 	if (color.a < alphaTestRef)
 		discard ;
+	color.rgb = mix(color.rgb, entityColor.rgb, entityColor.a);
 	lightmapData = vec4(lightcoord, 0.0, 1.0);
-	if (renderStage == MC_RENDER_STAGE_PARTICLES)
-		encodedNormal = vec4(shadowLightPosition * 5e-3 + 0.5, 1.0);
-	else
-		encodedNormal = vec4(normal * 0.5 + 0.5, 1.0);
+	encodedNormal = vec4(normal * 0.5 + 0.5, 1.0);
 }
