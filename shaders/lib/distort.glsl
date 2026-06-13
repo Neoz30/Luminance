@@ -6,7 +6,6 @@ const bool shadowtex1Nearest = true;
 const bool shadowcolor0Nearest = true;
 
 float f(vec2 v) {
-	//return (1.0);
 	return (length(v));
 }
 

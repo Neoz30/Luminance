@@ -4,6 +4,8 @@ uniform sampler2D texture;
 uniform float alphaTestRef;
 uniform int renderStage;
 uniform vec3 shadowLightPosition;
+uniform float viewWidth;
+uniform float viewHeight;
 
 in vec2 texcoord;
 in vec2 lightcoord;

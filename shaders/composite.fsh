@@ -7,7 +7,11 @@ uniform sampler2D colortex0;
 uniform sampler2D depthtex0;
 
 uniform float far;
+uniform float fogStart;
+uniform float fogEnd;
+uniform float fogDensity;
 uniform vec3 fogColor;
+
 
 in vec2 texcoord;
 
@@ -23,6 +27,7 @@ void main() {
 	if (depth == 1.0)
 		return ;
 	vec3 viewPos = projectAndDivide(gbufferProjectionInverse, vec3(texcoord, depth) * 2.0 - 1.0);
-	color = mix(color, vec4(sunlightColor, 1.0), pow(length(viewPos) / far, 3));
+	float t = clamp((length(viewPos) - fogStart) / (fogEnd - fogStart), 0.0, 1.0);
+	color = mix(color, vec4(fogColor, 1.0), t * pow(1 - fogDensity, 1 - t));
 	#endif
 }

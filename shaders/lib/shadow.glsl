@@ -33,8 +33,8 @@ bool shadow_checkboard(vec3 viewPos)
 
 vec3 getShadow(vec3 viewPos, vec3 normal) {
 	vec4 shadowClipPos = viewToClip * vec4(viewPos, 1.0);
-	float cosa = dot(normal, shadowLightPosition * 0.01);
-	float depthBias = 1.28 * abs(sqrt(1.0 - cosa * cosa) / (cosa * SHADOW_MAP));
+	float cosa = min(dot(normal, shadowLightPosition * 0.01), 0.9996);
+	float depthBias = 16.0 * abs(sqrt(1.0 - cosa * cosa) / (cosa * SHADOW_MAP));
 
 	vec3 shadowAccumaltor = vec3(0.0);
 	for (int x = -SHADOW_RANGE; x <= SHADOW_RANGE; x++)

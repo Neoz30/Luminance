@@ -20,7 +20,7 @@ void main()
     color = glcolor * texture2D(texture, texcoord);
 	if (color.a < alphaTestRef)
 		discard ;
-	color.rgb = vec3(0.0, float(int(16.0 * (color.r + color.g + color.b) / 3.0)) / 16, 0.0);
+	//color.rgb = vec3(0.0, float(int(16.0 * (color.r + color.g + color.b) / 3.0)) / 16, 0.0);
 	lightmapData = vec4(lightcoord, 0.0, 1.0);
 	encodedNormal = vec4(normal * 0.5 + 0.5, 1.0);
 }
